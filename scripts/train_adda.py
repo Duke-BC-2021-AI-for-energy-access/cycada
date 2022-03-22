@@ -14,24 +14,24 @@ np.random.seed(4325)
 ###################################
 # Set to your preferred data path #
 ###################################
-datadir = '/x/jhoffman'
+datadir = '/home/fcw/'
 ###################################
 
 # Choose GPU ID
 os.environ['CUDA_VISIBLE_DEVICES'] = '1' 
 
 # Problem Params
-src = 'mnist'
-tgt = 'usps'
+src = 'NE'
+tgt = 'NW'
 iteration = 1 #'no_cycle' 
 
 base_src = src.split('2')[0]
 
 model = 'LeNet'
-num_cls = 10
+num_cls = 1
 
 # Output directory
-outdir = 'results/{}_to_{}/iter_{}'.format(src, tgt, iteration)
+outdir = '/scratch/results/cycada/{}_to_{}/iter_{}'.format(src, tgt, iteration)
 #outdir = 'results/{}_to_{}'.format(src, tgt)
 
 # Optimization Params
@@ -41,7 +41,10 @@ batch = 128
 
 src_lr = 1e-4
 src_num_epoch = 100
+
+#Change: Need to declare src_datadir
 src_datadir = join(datadir, src)
+
 src_net_file = join(outdir, '{}_net_{}.pth'.format(model, src)) 
 adda_num_epoch = 200
 adda_lr = 1e-5
@@ -75,6 +78,8 @@ else:
 ##############################
 # 3. Evalute source and adda #
 ##############################
+
+'''
 tgt_datadir = join(datadir, tgt)
 print()
 if src == base_src:
@@ -99,3 +104,4 @@ print('Evaluating {}->{} adda model: {}'.format(src, tgt, adda_net_file))
 cm = load_and_test_net(tgt, tgt_datadir, adda_net_file, 'AddaNet', num_cls, 
         dset='test', base_model=model)
 print(cm)
+'''
